@@ -1,3 +1,19 @@
 qwdq
 dsada
 12
+
+/**
+	 * 查询TCG父产品集合
+	 */
+	@RequestMapping(value = "/plioif")
+	public Map<String, Object> plioif(@RequestBody Map<String, Object> req, @ModelAttribute("User") BSBUser user) {
+		Map<String, Object> paramap = collectParam(req, user, false);
+		Map<String, Object> reqmap = new HashMap<String, Object>();
+		try {
+			reqmap = icmsClient.callClient("ICMS.Kernel.cmtran.plioif", paramap);
+		} catch (Exception e) {
+			logger.debug("error------" + e.toString());
+			reqmap.put("msg", reqmap.get("erortx"));
+		}
+		return reqmap;
+	}
