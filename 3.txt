@@ -17,3 +17,18 @@ dsada
 		}
 		return reqmap;
 	}
+	 * 查询TCG子产品集合
+	 */
+	@RequestMapping(value = "/slioif")
+	public Map<String, Object> slioif(@RequestBody Map<String, Object> req, @ModelAttribute("User") BSBUser user) {
+		Map<String, Object> paramap = collectParam(req, user, false);
+		Map<String, Object> reqmap = new HashMap<String, Object>();
+		try {
+			reqmap = icmsClient.callClient("ICMS.Kernel.cmtran.slioif", paramap);
+		} catch (Exception e) {
+			logger.debug("error------" + e.toString());
+			reqmap.put("msg", reqmap.get("erortx"));
+		}
+		return reqmap;
+	}
+	
