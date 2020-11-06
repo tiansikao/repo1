@@ -1,8 +1,6 @@
 121212
 
-/**
-	 * 增加TCG父产品
-	 */
+/**	 * 增加TCG父产品 */
 	@RequestMapping(value = "/deplio")
 	public Map<String, Object> deplio(@RequestBody Map<String, Object> req, @ModelAttribute("User") BSBUser user) {
 		Map<String, Object> paramap = collectParam(req, user, false);
@@ -15,4 +13,18 @@
 		}
 		return reqmap;
 	}
-	
+
+/**	 * 删除TCG父产品*/
+	@RequestMapping(value = "/deplio")
+	public Map<String, Object> deplio(@RequestBody Map<String, Object> req, @ModelAttribute("User") BSBUser user) {
+		Map<String, Object> paramap = collectParam(req, user, false);
+		Map<String, Object> reqmap = new HashMap<String, Object>();
+		try {
+			reqmap = icmsClient.callClient("ICMS.Kernel.cmtran.deplio", paramap);
+		} catch (Exception e) {
+			logger.debug("error------" + e.toString());
+			reqmap.put("msg", reqmap.get("erortx"));
+		}
+		return reqmap;
+	}
+
