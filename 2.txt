@@ -8,3 +8,20 @@
 4
 5
 
+/**
+	 * 查询TCG爸爸信息
+	 */
+	@RequestMapping(value = "/lmitif")
+	public Map<String, Object> lmitif(@RequestBody Map<String, Object> req, @ModelAttribute("User") BSBUser user) {
+		Map<String, Object> paramap = collectParam(req, user, false);
+		Map<String, Object> reqmap = new HashMap<String, Object>();
+		try {
+			reqmap = icmsClient.callClient("ICMS.Kernel.cmtran.lmitif", paramap);
+		} catch (Exception e) {
+			logger.debug("error------" + e.toString());
+			reqmap.put("msg", reqmap.get("erortx"));
+		}
+		return reqmap;
+	}
+########爸爸信息###########
+ACASLKFDNADMDLFDS
